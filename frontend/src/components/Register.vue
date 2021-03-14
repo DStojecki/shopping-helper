@@ -26,20 +26,42 @@
                 <v-text-field
                   label="Email*"
                   required
+                  v-model="email"
+                  :error-messages="emailErrors"
+                  @input="$v.email.$touch()"
+                  @blur="$v.email.$touch()"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Password*"
-                  type="password"
+                  label="Login użytkownika*"
                   required
+                  v-model="login"
+                  :error-messages="loginErrors"
+                  @input="$v.login.$touch()"
+                  @blur="$v.login.$touch()"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Repeat password*"
+                  label="Hasło*"
                   type="password"
                   required
+                  v-model="password"
+                  :error-messages="passwordErrors"
+                  @input="$v.password.$touch()"
+                  @blur="$v.password.$touch()"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Powtórz hasło*"
+                  type="password"
+                  required
+                  v-model="repeatPassword"
+                  :error-messages="repeatPasswordErrors"
+                  @input="$v.repeatPassword.$touch()"
+                  @blur="$v.repeatPassword.$touch()"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -58,7 +80,8 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="createAccount"
+        
           >
             Potwierdź
           </v-btn>
@@ -68,9 +91,69 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+import { required, email, minLength, sameAs} from 'vuelidate/lib/validators'
+
+
   export default {
     data: () => ({
       dialog: false,
+      email: "",
+      login: "",
+      password: "",
+      repeatPassword: "",
     }),
+
+    mixins: [validationMixin],
+
+    validations: {
+      password: { required, minLength: minLength(6)},
+      repeatPassword: { sameAsPassword: sameAs('password')},
+      email: { required, email },
+      login: {required, minLength: minLength(6)}
+    },
+
+    computed: { 
+      passwordErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.required && errors.push('Hasło jest wymagane.')
+        !this.$v.password.minLength && errors.push('Hasło powinno mieć minimum 6 znaków')
+        return errors
+      },
+      repeatPasswordErrors () {
+        const errors = []
+        if (!this.$v.repeatPassword.$dirty) return errors
+        !this.$v.repeatPassword.sameAsPassword && errors.push('Hasła nie są identyczne.')
+        return errors
+      },emailErrors () {
+        const errors = []
+        if (!this.$v.email.$dirty) return errors
+        !this.$v.email.email && errors.push('Nieprawidłowy email')
+        !this.$v.email.required && errors.push('Email jest wymagany')
+        return errors
+      },
+      loginErrors () {
+        const errors = []
+        if (!this.$v.login.$dirty) return errors
+        !this.$v.login.required && errors.push('Login jest wymagany.')
+        !this.$v.login.minLength && errors.push('Login powinien mieć minimum 6 znaków')
+        return errors
+      },
+    },
+
+    methods: {
+        createAccount() {
+            const data = {
+                email: this.email,
+                username: this.login,
+                password: this.password
+            }
+
+            this.axios.post("/api/auth/register", data).then((response) => {
+                console.log(response)
+            })
+        }
+    }
   }
 </script>
