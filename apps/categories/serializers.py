@@ -6,7 +6,7 @@ from apps.lists.models import ShoppingList
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'shopping_list', 'created_at')
+        fields = ('id', 'name', 'shopping_list', 'product_set', 'created_at')
 
     def create(self, validated_data):
         shopping_list = validated_data.get('shopping_list') \
