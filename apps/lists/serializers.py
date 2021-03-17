@@ -5,7 +5,7 @@ from .models import ShoppingList
 class ShoppingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShoppingList
-        fields = ('id', 'name', 'is_archived', 'created_at')
+        fields = ('id', 'name', 'is_archived', 'category_set', 'created_at')
 
     def create(self, validated_data):
         try:
