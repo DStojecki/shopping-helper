@@ -92,8 +92,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, email, minLength, sameAs} from 'vuelidate/lib/validators'
-
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
   export default {
     data: () => ({
