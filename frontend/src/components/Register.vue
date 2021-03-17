@@ -80,7 +80,8 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="createAccount"
+            @click="submit"
+            :disabled="$v.$invalid"
         
           >
             Potwierdź
@@ -101,6 +102,7 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
       login: "",
       password: "",
       repeatPassword: "",
+      submitStatus: null
     }),
 
     mixins: [validationMixin],
@@ -142,7 +144,7 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
     },
 
     methods: {
-        createAccount() {
+        submit() {
             const data = {
                 email: this.email,
                 username: this.login,
@@ -150,9 +152,10 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
             }
 
             this.axios.post("/api/auth/register", data).then((response) => {
-                console.log(response)
+            console.log(response)
             })
+            }
         }
     }
-  }
+  
 </script>
