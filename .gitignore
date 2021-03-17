@@ -2,6 +2,7 @@
 /frontend/dist/
 /static/
 /venv/
+*/__pycache__/*
 
 # Config file and database
 .env*
