@@ -54,6 +54,7 @@ export default new Vuex.Store({
         name: "lista testowa"
     }],
     openList: [],
+    boughtList: [],
   },
 
   mutations: {
@@ -87,6 +88,9 @@ export default new Vuex.Store({
     changeOpenList(state, payload) {
         state.openList = payload
     },
+    addToBoughtList(state, payload) {
+        state.boughtList.push(payload)
+    }
 },
 
   actions: {
