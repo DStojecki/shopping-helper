@@ -4,12 +4,12 @@
             <div class="panel">
                 <form>
                     <v-text-field
-                    v-model="email"
-                    :error-messages="emailErrors"
-                    label="E-mail"
+                    label="Login użytkownika"
                     required
-                    @input="$v.email.$touch()"
-                    @blur="$v.email.$touch()"
+                    v-model="login"
+                    :error-messages="loginErrors"
+                    @input="$v.login.$touch()"
+                    @blur="$v.login.$touch()"
                     ></v-text-field>
                     <v-text-field
                     type="password"
@@ -36,7 +36,7 @@
 
 <script>
   import { validationMixin } from 'vuelidate'
-  import { required, email, } from 'vuelidate/lib/validators'
+  import { required, minLength } from 'vuelidate/lib/validators'
   import Register from '../components/Register.vue'
 
   export default {
@@ -44,12 +44,12 @@
 
     validations: {
       password: { required },
-      email: { required, email },
+     login: {required, minLength: minLength(6)}
     },
 
     data: () => ({
       password: '',
-      email: '',
+      login: '',
     }),
 
     components: {
@@ -62,11 +62,11 @@
         if (!this.$v.password.$dirty) return errors
         !this.$v.password.required && errors.push('Hasło jest wymagane.')
         return errors
-      },emailErrors () {
+      },loginErrors () {
         const errors = []
-        if (!this.$v.email.$dirty) return errors
-        !this.$v.email.email && errors.push('Nieprawidłowy email')
-        !this.$v.email.required && errors.push('Email jest wymagany')
+        if (!this.$v.login.$dirty) return errors
+        !this.$v.login.required && errors.push('Login jest wymagany.')
+        !this.$v.login.minLength && errors.push('Login powinien mieć minimum 6 znaków')
         return errors
       },
     },
@@ -75,6 +75,14 @@
       submit () {
         this.$v.$touch()
         this.$store.commit("changeIsLogged", true)
+        const data = {
+                username: this.login,
+                password: this.password
+        }
+
+            this.axios.post("http://localhost/api/auth/token", data).then((response) => {
+            console.log(response)
+        })
       },
     },
   }

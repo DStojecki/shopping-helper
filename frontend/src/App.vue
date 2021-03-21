@@ -57,8 +57,7 @@
 
       <template v-slot:extension>
         <v-tabs align-with-title>
-          <v-tab>Lista</v-tab>
-          <v-tab>Kupione</v-tab>
+          
         </v-tabs>
       </template>
     </v-app-bar>

@@ -2,10 +2,16 @@
     <div>
         <div class="input mt-4">
             <v-text-field v-model="product" class="product mx-2"
-            label="Dodaj produkt"
+            label="Dodaj produkt" 
+            :error-messages="productErrors"
+            @input="$v.product.$touch()"
+            @blur="$v.product.$touch()"
             ></v-text-field>
             <v-text-field v-model="quantity" class="quantity mx-2"
             label="Wybierz ilość"
+            :error-messages="quantityErrors"
+            @input="$v.quantity.$touch()"
+            @blur="$v.quantity.$touch()"
             ></v-text-field>
             <v-select class="type mx-2"
                 :items="items"
@@ -14,19 +20,14 @@
             ></v-select>
             <v-btn
             class="mx-2"
-            fab
-            dark
-            small
-            color="primary"
             @click="addProduct"
+            :disabled="$v.$invalid"
             >
-                <v-icon dark >
-                    mdi-plus
-                </v-icon>
+                Dodaj
             </v-btn>
         </div>
         <div>
-            <v-simple-table dense>
+            <v-simple-table dense class="pb-4" v-if="products.length > 0">
                 <template v-slot:default>
                 <thead>
                     <tr>
@@ -44,7 +45,7 @@
                     >
                     <td class="product">{{ product.product }}</td>
                     <td class="quantity">{{product.quantity }} &nbsp; {{ product.type }}
-                        <v-icon class="ico" @click="remove(i)">
+                        <v-icon class="ico" @click="remove(i)" >
                             mdi-close
                         </v-icon>
                     </td>
@@ -59,6 +60,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import { validationMixin } from 'vuelidate'
+import { required, decimal, minLength, maxLength} from 'vuelidate/lib/validators'
 
   export default {
     data: () => ({
@@ -68,13 +71,35 @@ import { mapState } from 'vuex'
       select: "",
     }),
 
-    computed: {
-         ...mapState(["lists"]),
+    mixins: [validationMixin],
 
-         products() {
-             return this.lists[this.index].products
-         }
+    validations: {
+      product: { required, minLength: minLength(3)},
+      quantity: { required, decimal, maxLength: maxLength(6)},
+      select: { required },
     },
+
+    computed: {
+        ...mapState(["lists"]),
+
+        products() {
+             return this.lists[this.index].products
+         },
+        productErrors () {
+            const errors = []
+            if (!this.$v.product.$dirty) return errors
+            !this.$v.product.minLength && errors.push('Produkt powinien zawierać minimum 3 znaki')
+            return errors
+        },
+        quantityErrors () {
+            const errors = []
+            if (!this.$v.quantity.$dirty) return errors
+            !this.$v.quantity.decimal && errors.push('Nieprawidłowa wartość')
+            !this.$v.quantity.maxLength && errors.push('Zbyt długi ciąg znaków')
+            return errors
+        },
+    },
+    
 
     props: ["index"],
     

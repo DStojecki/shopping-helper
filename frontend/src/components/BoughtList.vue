@@ -7,7 +7,7 @@
       expand-icon 
       class="pa-6">
         <v-expansion-panel class="my-1"
-            v-for="(item,i) in openList.list" :key="i">
+            v-for="(item,i) in boughtList.list" :key="i">
             <v-expansion-panel-header class="white-font" :class="item.color">{{ item.name }} 
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -54,43 +54,6 @@
                 </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-    <h1 class="pa-6 pb-0 text-h4 text-capitalize">Zakupione</h1>
-    <v-expansion-panels
-      multiple
-      focusable
-      expand-icon 
-      class="pa-6">
-        <v-expansion-panel class="my-1">
-            <v-expansion-panel-header class="white-font black"> 
-                </v-expansion-panel-header>
-                <v-expansion-panel-content>
-                    <div>
-                        <v-simple-table dense>
-                            <template v-slot:default>
-                            <thead>
-                                <tr>
-                                <th class="text-left">
-                                    Nazwa
-                                </th>
-                                <th class="text-left">
-                                    Ilość
-                                </th>
-                                <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="px-2 height" >
-                                <td class="product"></td>
-                                <td class="quantity">
-                                </td>
-                                </tr>
-                            </tbody>
-                            </template>
-                        </v-simple-table>
-                    </div>
-                </v-expansion-panel-content>
-        </v-expansion-panel>
-    </v-expansion-panels>
 </div>
 </template>
 
@@ -99,7 +62,7 @@ import { mapState } from "vuex"
 
 export default {
     computed: {
-        ...mapState(["openList",])
+        ...mapState(["boughtList",])
     },
     props: ["name"],
     

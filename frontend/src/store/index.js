@@ -21,7 +21,38 @@ export default new Vuex.Store({
         products: [],
     }],
     isLogged: false,
-    savedLists: [],
+    savedLists: [{
+        list: [{
+            color: "green",
+            name: "Warzywa i owoce",
+            products: [{
+                product: "nazwa",
+                quantity: "23",
+                type: "g"
+            },
+            {
+                product: "nazwa",
+                quantity: "23",
+                type: "g"
+            },
+            {
+                product: "nazwa",
+                quantity: "23",
+                type: "g"
+            }],
+        },
+        {
+            color: "pink",
+            name: "Mięso i wędliny",
+            products: [],
+        },
+        {
+            color: "red",
+            name: "Chemia",
+            products: [],
+        }],
+        name: "lista testowa"
+    }],
     openList: [],
   },
 
@@ -55,7 +86,7 @@ export default new Vuex.Store({
     },
     changeOpenList(state, payload) {
         state.openList = payload
-    }
+    },
 },
 
   actions: {

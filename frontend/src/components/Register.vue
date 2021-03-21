@@ -91,6 +91,7 @@
     </v-dialog>
 </template>
 
+
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
@@ -102,7 +103,6 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
       login: "",
       password: "",
       repeatPassword: "",
-      submitStatus: null
     }),
 
     mixins: [validationMixin],
@@ -151,9 +151,12 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
                 password: this.password
             }
 
-            this.axios.post("/api/auth/register", data).then((response) => {
-            console.log(response)
-            })
+            this.axios.post("http://localhost/api/auth/register", data)
+            
+            this.dialog = false
+            this.email = ""
+            this.username = ""
+            this.password = ""
             }
         }
     }
