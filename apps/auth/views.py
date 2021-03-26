@@ -16,8 +16,5 @@ def register(request):
         return response.Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
     user = serializer.save()
     refresh = RefreshToken.for_user(user)
-    res = {
-        "refresh": str(refresh),
-        "access": str(refresh.access_token),
-    }
+    res = {"jwt": str(refresh.access_token)}
     return response.Response(res, status.HTTP_201_CREATED)

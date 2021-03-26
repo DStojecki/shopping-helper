@@ -1,15 +1,11 @@
 from django.contrib.auth.models import User
 from django.db import models
-from apps.categories.models import Category
+from ..categories.models import Category
 
 
 class Product(models.Model):
     name = models.CharField(max_length=240)
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE
-    )
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(null=False)
     quantity_type = models.CharField(
         max_length=3,
         choices=[
@@ -21,11 +17,7 @@ class Product(models.Model):
         ],
         default='szt'
     )
-    created_by = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
-    created_at = models.DateTimeField(auto_now=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='products')
 
     def __str__(self):
         return self.name
