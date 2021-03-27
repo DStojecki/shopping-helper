@@ -2,7 +2,9 @@
 /frontend/dist/
 /static/
 /venv/
-*/__pycache__/*
+__pycache__/
+*.py[cod]
+*$py.class
 
 # Config file and database
 .env*
@@ -22,3 +24,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Django stuff:
+*.log
+*.pot
