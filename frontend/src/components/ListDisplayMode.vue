@@ -80,7 +80,7 @@
                 </tbody>
         </template>
     </v-simple-table>
-    <p class="pa-6">Tutaj pojawi się lista rzeczy które już zostały wsadzone do koszyka. Żeby dodać produkt do listy produktów zakupionych kliknij zielony przycisk obok nazwy produktu.</p>
+    <p v-else class="pa-6">Tutaj pojawi się lista rzeczy które już zostały wsadzone do koszyka. Żeby dodać produkt do listy produktów zakupionych kliknij zielony przycisk obok nazwy produktu.</p>
 
     <v-btn
     color="primary"

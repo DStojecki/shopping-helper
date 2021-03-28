@@ -6,11 +6,10 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary"
-          dark
+          color=""
           v-bind="attrs"
           v-on="on"
-          class="mt-6"
+          class="mt-6 mr-4"
         >
           Rejestracja
         </v-btn>
