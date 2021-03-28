@@ -84,10 +84,8 @@
 
     <v-btn
     color="primary"
-    dark class="create-btn mr-6"
-    
-    >
-        Zakończ zakupy
+    dark class="create-btn mr-6 mb-4"
+    >       Zakończ zakupy
     </v-btn>
 </div>
 </template>

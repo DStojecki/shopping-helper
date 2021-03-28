@@ -10,8 +10,7 @@ class ShoppingListViewSet(viewsets.ModelViewSet):
     """
     permission_classes = [OwnerOnly]
     serializer_class = ShoppingListSerializer
-    queryset = ShoppingList.objects.all().order_by('-created_at')
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(created_by=self.request.user)
+        queryset = ShoppingList.objects.filter(created_by=self.request.user).all().order_by('-created_at')
+        return queryset
