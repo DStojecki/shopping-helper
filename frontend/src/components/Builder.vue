@@ -196,9 +196,27 @@ import List from "./List.vue"
       },
 
       createList() {
-          this.$store.commit("addNewList", this.listName)
-          this.secondDialog = false
-      }
+
+          const data = {
+              name: this.listName,
+              categories: this.lists
+          }
+
+        //   this.$store.commit("addNewList", this.listName)
+          this.axios.post("http://localhost/api/lists", data, {
+              headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+              "Content-Type": "application/json"},
+          })
+        //   this.secondDialog = false
+
+        //   this.axios.get("http://localhost/api/lists", { 
+              
+        //     headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
+
+        //   }).then((res) => {
+        //       console.log(res)
+        //   })
+      },
 
     },
 

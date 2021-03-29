@@ -83,25 +83,21 @@
                 password: this.password
         }
 
-            this.axios.post("http://localhost/api/auth/token", data).then((response) => {
-            console.log(response.status)
-
-
+        this.axios.post("http://localhost/api/auth/token", data).then((response) => {
+            
             if(response.status === 200) {
                 this.$store.commit("changeIsLogged", true)
                 localStorage.setItem('access_token', response.data.access);
                 localStorage.setItem('refresh_token', response.data.refresh);
-            }
-        })
-
-
-        setTimeout(() => {
-            this.login = ""
-            this.password = ""
-        }, 200)
+            }}).catch((err) => {
+                this.login = ""
+                this.password = ""
+            })
       },
     },
-  }
+}
+  
+
 </script>
 
 

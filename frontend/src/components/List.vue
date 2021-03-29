@@ -122,8 +122,10 @@ import { required, decimal, minLength, maxLength} from 'vuelidate/lib/validators
         remove(i) {
           this.$store.commit("removeProduct", { index: this.index, i,})
       }, 
-    }
+    },
   }
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -190,3 +192,5 @@ import { required, decimal, minLength, maxLength} from 'vuelidate/lib/validators
         width: 30%;
     }
 </style>
+
+

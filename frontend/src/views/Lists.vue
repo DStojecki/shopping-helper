@@ -71,15 +71,24 @@ export default {
             haveSavedList: false,
         }
     },
+
     computed: {
         ...mapState(["savedLists"]),
     },
+
     methods: {
         commitList(item) {
             this.$store.commit("changeOpenList", item)
         }
-    }
-    
+    },
+
+    // created() {
+    //     this.axios.get('http://localhost/api/lists',{ 
+    //         headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
+    //     }).then((respone) => {
+    //         console.log(respone)
+    //     })
+    // }
 }
 </script>
 
