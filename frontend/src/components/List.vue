@@ -65,7 +65,7 @@ import { required, decimal, minLength, maxLength} from 'vuelidate/lib/validators
 
   export default {
     data: () => ({
-      items: ['g', 'kg', 'opakowanie', 'szt', 'ml', 'l'],
+      items: ['g', 'kg','szt', 'ml', 'l'],
       product: "",
       quantity: "",
       select: "",

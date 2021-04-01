@@ -1,13 +1,13 @@
 <template>
 <div>
-    <h1 class="pa-6 pb-0 text-h5 text-capitalize">{{ openList.name }}</h1>
+    <h1 class="pa-6 pb-0 text-h5 text-capitalize">{{ name }}</h1>
     <v-expansion-panels
       multiple
       focusable
       expand-icon 
       class="pa-6">
         <v-expansion-panel class="my-1"
-            v-for="(item,i) in openList.list" :key="i" >
+            v-for="(item,i) in openList" :key="i" >
             <v-expansion-panel-header class="white-font" :class="item.color">{{ item.name }} 
                 </v-expansion-panel-header>
                 <v-expansion-panel-content v-if="item.products.length > 0">
@@ -94,10 +94,16 @@
 import { mapState } from "vuex"
 
 export default {
-    computed: {
-        ...mapState(["openList", "boughtList"])
+    data() {
+        return {
+            openList: [],
+            name: "",
+        }
     },
-    props: ["name"],
+    computed: {
+        ...mapState(["boughtList", "requestedListId"])
+    },
+
     methods: {
         addToBought(i, index) {
             const product = this.openList.list[i].products[index]
@@ -106,7 +112,19 @@ export default {
         }   
     },
     created() {
-        console.log(this.openList)
+        if(this.requestedListId === 0) {  
+            this.$router.push({name: 'Lists'})
+            return
+        }
+
+        this.axios.get(`http://localhost/api/lists/${this.requestedListId}`,{ 
+
+            headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
+
+        }).then((res) => {
+            this.openList = res.data.categories
+            this.name = res.data.name
+        })
     }
     
 }

@@ -202,21 +202,13 @@ import List from "./List.vue"
               categories: this.list
           }
 
-        //   this.$store.commit("addNewList", this.listName)
-        
           this.axios.post("http://localhost/api/lists", data, {
               headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
               "Content-Type": "application/json"},
           })
-        //   this.secondDialog = false
+          this.secondDialog = false
 
-        //   this.axios.get("http://localhost/api/lists", { 
-              
-        //     headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
-
-        //   }).then((res) => {
-        //       console.log(res)
-        //   })
+        
       },
 
     },

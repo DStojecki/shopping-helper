@@ -21,40 +21,10 @@ export default new Vuex.Store({
         products: [],
     }],
     isLogged: false,
-    savedLists: [{
-        list: [{
-            color: "green",
-            name: "Warzywa i owoce",
-            products: [{
-                product: "nazwa",
-                quantity: "23",
-                type: "g"
-            },
-            {
-                product: "nazwa",
-                quantity: "23",
-                type: "g"
-            },
-            {
-                product: "nazwa",
-                quantity: "23",
-                type: "g"
-            }],
-        },
-        {
-            color: "pink",
-            name: "Mięso i wędliny",
-            products: [],
-        },
-        {
-            color: "red",
-            name: "Chemia",
-            products: [],
-        }],
-        name: "lista testowa"
-    }],
+    savedLists: [],
     openList: [],
     boughtList: [],
+    requestedListId: 0,
   },
 
   mutations: {
@@ -77,19 +47,14 @@ export default new Vuex.Store({
     addProduct(state, payload) {
         state.list[payload.index].products.push(payload.newProduct)
     },
-
-    addNewList(state, payload) {
-        state.savedList.push({
-            name: payload,
-            list: state.list
-        })
-        state.list = []
-    },
     changeOpenList(state, payload) {
         state.openList = payload
     },
     addToBoughtList(state, payload) {
         state.boughtList.push(payload)
+    },
+    changeId(state, payload) {
+        state.requestedListId = payload
     }
 },
 

@@ -20,8 +20,8 @@ const routes = [
   {
     path: '/lista',
     name: 'List',
-    component: List
-  }
+    component: List,
+ }
 ]
 
 const router = new VueRouter({
