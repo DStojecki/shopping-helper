@@ -104,9 +104,13 @@ export default {
             this.openList.list[i].products.splice(index, 1)
             this.$store.commit("addToBoughtList", product)
         }   
+    },
+    created() {
+        console.log(this.openList)
     }
     
 }
+
 </script>
 
 <style lang="scss" scoped>

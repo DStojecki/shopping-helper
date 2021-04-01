@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    lists: [{
+    list: [{
         color: "green",
         name: "Warzywa i owoce",
         products: [],
@@ -59,15 +59,15 @@ export default new Vuex.Store({
 
   mutations: {
     addNewCategory(state, payload) {
-        state.lists.push(payload)
+        state.list.push(payload)
     },
 
     removeCategory(state, payload) {
-        state.lists.splice(payload, 1);
+        state.list.splice(payload, 1);
     },
 
     removeProduct(state, payload) {
-        state.lists[payload.index].products.splice(payload.i, 1)
+        state.list[payload.index].products.splice(payload.i, 1)
     },
 
     changeIsLogged(state, payload) {
@@ -75,15 +75,15 @@ export default new Vuex.Store({
     },
 
     addProduct(state, payload) {
-        state.lists[payload.index].products.push(payload.newProduct)
+        state.list[payload.index].products.push(payload.newProduct)
     },
 
     addNewList(state, payload) {
-        state.savedLists.push({
+        state.savedList.push({
             name: payload,
-            list: state.lists
+            list: state.list
         })
-        state.lists = []
+        state.list = []
     },
     changeOpenList(state, payload) {
         state.openList = payload

@@ -32,9 +32,9 @@
       focusable
       expand-icon >
       <v-expansion-panel class="my-1"
-        v-for="(item,i) in lists" :key="i">
+        v-for="(item,i) in list" :key="i">
       
-        <v-expansion-panel-header class="white-font" :class="lists[i].color">{{ lists[i].name }} 
+        <v-expansion-panel-header class="white-font" :class="list[i].color">{{ list[i].name }} 
             <div class="ico">
                 <v-icon class="delete-ico" color="white" @click.stop="openDialog(i)">
                 mdi-delete
@@ -165,7 +165,7 @@ import List from "./List.vue"
 
     methods: {
       all () {
-        this.panel = [...Array(this.lists.length).keys()].map((k, i) => i)
+        this.panel = [...Array(this.list.length).keys()].map((k, i) => i)
       },
 
       none () {
@@ -199,10 +199,11 @@ import List from "./List.vue"
 
           const data = {
               name: this.listName,
-              categories: this.lists
+              categories: this.list
           }
 
         //   this.$store.commit("addNewList", this.listName)
+        
           this.axios.post("http://localhost/api/lists", data, {
               headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
               "Content-Type": "application/json"},
@@ -221,15 +222,15 @@ import List from "./List.vue"
     },
 
     computed: {
-        ...mapState(["lists"]),
+        ...mapState(["list"]),
         form() {
             return document.querySelector("form")
         }
     },
 
     watch: {
-        lists() {
-            if(this.lists.length === 0) {
+        list() {
+            if(this.list.length === 0) {
                 this.disableButtons = true
 
                 this.form.classList.add("active")
@@ -243,7 +244,7 @@ import List from "./List.vue"
 
     mounted() {
         this.form.style.maxHeight = this.form.scrollHeight + "px";
-        if(this.lists.length === 0) {
+        if(this.list.length === 0) {
                 this.disableButtons = true
 
                 this.form.classList.add("active")

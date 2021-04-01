@@ -39,6 +39,18 @@
                 </v-card-actions>
             </v-card>
         </div>
+        <div class="list">
+            <li v-for="(item, i) in savedLists" :key="i">
+                <span>
+                    <v-icon dark color="purple">
+                     mdi-clipboard-list-outline
+                    </v-icon>
+                </span>
+                <span>
+                    {{item.name}}
+                </span>
+            </li>
+        </div>
     </div>
     <div v-else>
         <v-alert
@@ -120,5 +132,22 @@ export default {
         text-align: center;
         vertical-align: middle;
         line-height: 36px;
+    }
+
+    .list {
+        list-style: none;
+        padding: 30px;
+
+        li {
+            border: 1px solid #999;
+            border-radius: 2px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 15px;
+            
+            span {
+                margin: 0px 10px;
+            }
+        }
     }
 </style>

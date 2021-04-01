@@ -80,17 +80,19 @@ import { required, decimal, minLength, maxLength} from 'vuelidate/lib/validators
     },
 
     computed: {
-        ...mapState(["lists"]),
+        ...mapState(["list"]),
 
         products() {
-             return this.lists[this.index].products
-         },
+             return this.list[this.index].products
+        },
+
         productErrors () {
             const errors = []
             if (!this.$v.product.$dirty) return errors
             !this.$v.product.minLength && errors.push('Produkt powinien zawierać minimum 3 znaki')
             return errors
         },
+        
         quantityErrors () {
             const errors = []
             if (!this.$v.quantity.$dirty) return errors
