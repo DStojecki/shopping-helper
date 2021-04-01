@@ -4,9 +4,9 @@ from ..categories.models import Category
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=240)
+    product = models.CharField(max_length=240)
     quantity = models.IntegerField(null=False)
-    quantity_type = models.CharField(
+    type = models.CharField(
         max_length=3,
         choices=[
             ('szt', 'sztuk'),
