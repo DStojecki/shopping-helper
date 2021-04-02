@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <div v-if="savedLists.length > 0">
+    <div v-if="savedLists != undefined && savedLists.length > 0">
         <h1 class="mx-5 mt-5 pa-6 pb-0 text-h5">Tutaj znajdziesz zapisane listy:</h1>
         <div class="grid">
             <v-card
@@ -12,7 +12,7 @@
                 <p class="display-1 text--primary">
                     {{item.name}}
                 </p>
-                <p>Utworzona: </p>
+                <p>Utworzona: {{ item.created_at}}</p>
                 </v-card-text>
                 <v-card-actions>
                 <router-link to="/lista">
@@ -33,7 +33,7 @@
                 <v-btn
                     text
                     color="deep-purple accent-4"
-                    @click="deleteList(item.id)"
+                    @click="openDialog(item.id)"
                 >
                     Usuń
                 </v-btn>
@@ -58,9 +58,44 @@
             </router-link>
             
     </div>
+    <v-dialog
+      v-model="dialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="headline">
+          Uwaga!
+        </v-card-title>
+
+        <v-card-text>
+          Czy jesteś pewien że chcesz usunąć tą listę ? Nie będzie można jej później odzyskać.
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialog = false"
+          >
+            Cofnij
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="deleteList(id)"
+          >
+            Usuń
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
+// @click="deleteList(item.id)"
 
 <script>
 
@@ -69,6 +104,8 @@ export default {
         return {
             haveSavedList: false,
             savedLists: [],
+            dialog: false,
+            id: null,
         }
     },
 
@@ -84,6 +121,11 @@ export default {
 
             }).then((res) => {
                 this.savedLists = res.data.results
+
+                this.savedLists.forEach(el => { 
+                    let date = new Date(el.created_at);
+                    el.created_at = date.toLocaleDateString()
+                });
             })
         },
 
@@ -96,6 +138,13 @@ export default {
                 this.savedLists = res.data.results
                 this.downloadList()
             })
+
+            this.dialog = false
+        },
+
+        openDialog(id) {
+            this.dialog = true
+            this.id = id 
         }
     },
 

@@ -74,7 +74,7 @@
                 <tbody>
                     <tr class="px-2 height" v-for="(productBought, index) in boughtList" :key="index">
                         <td class="product">{{ productBought.product }}</td>
-                        <td class="quantity"> {{ productBought.quantity }} {{ productBought.quantity }}
+                        <td class="quantity"> {{ productBought.quantity }} {{ productBought.type }}
                         </td>
                     </tr>
                 </tbody>
@@ -100,17 +100,19 @@ export default {
             name: "",
         }
     },
+    
     computed: {
         ...mapState(["boughtList", "requestedListId"])
     },
 
     methods: {
         addToBought(i, index) {
-            const product = this.openList.list[i].products[index]
-            this.openList.list[i].products.splice(index, 1)
+            const product = this.openList[i].products[index]
+            this.openList[i].products.splice(index, 1)
             this.$store.commit("addToBoughtList", product)
         }   
     },
+
     created() {
         if(this.requestedListId === 0) {  
             this.$router.push({name: 'Lists'})

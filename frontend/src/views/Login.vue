@@ -65,7 +65,8 @@
         !this.$v.password.required && errors.push('Nieprawidłowe hasło.')
         !this.$v.password.minLength && errors.push('Hasło powinno mieć minimum 6 znaków')
         return errors
-      },loginErrors () {
+      },
+      loginErrors () {
         const errors = []
         if (!this.$v.login.$dirty) return errors
         !this.$v.login.required && errors.push('Nieprawidłowy login.')
@@ -89,12 +90,25 @@
                 this.$store.commit("changeIsLogged", true)
                 localStorage.setItem('access_token', response.data.access);
                 localStorage.setItem('refresh_token', response.data.refresh);
-            }}).catch((err) => {
+            }})
+            .catch((err) => {
                 this.login = ""
                 this.password = ""
             })
       },
     },
+
+    created() {
+        window.addEventListener("keydown", (e) => {
+            switch(e.keyCode) {
+                case 13: 
+                    if(!this.$v.$invalid) {
+                        this.submit()
+                    }
+                    break
+                }
+        })
+    }
 }
   
 

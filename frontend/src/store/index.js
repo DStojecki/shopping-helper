@@ -47,9 +47,7 @@ export default new Vuex.Store({
     addProduct(state, payload) {
         state.list[payload.index].products.push(payload.newProduct)
     },
-    changeOpenList(state, payload) {
-        state.openList = payload
-    },
+    
     addToBoughtList(state, payload) {
         state.boughtList.push(payload)
     },
