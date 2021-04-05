@@ -25,9 +25,19 @@ export default new Vuex.Store({
     openList: [],
     boughtList: [],
     requestedListId: 0,
+    editable: false,
   },
 
   mutations: {
+    
+    changeList(state, payload) {
+        state.list = payload
+    },
+
+    cleanList(state) {
+        state.list = []
+    },
+
     addNewCategory(state, payload) {
         state.list.push(payload)
     },
@@ -51,8 +61,13 @@ export default new Vuex.Store({
     addToBoughtList(state, payload) {
         state.boughtList.push(payload)
     },
+
     changeId(state, payload) {
         state.requestedListId = payload
+    },
+
+    changeEditable(state, paylod) {
+        state.editable = paylod
     }
 },
 

@@ -90,6 +90,16 @@
             >
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
+                v-if="isInEdit"
+                color="primary"
+                dark class="create-btn"
+                v-bind="attrs"
+                @click="editList"
+                >
+                Edytuj
+                </v-btn>
+                <v-btn
+                v-else
                 color="primary"
                 dark class="create-btn"
                 v-bind="attrs"
@@ -155,6 +165,7 @@ import List from "./List.vue"
         secondDialog: false,
         index: "",
         listName: "",
+        isInEdit: false,
       }
     },
 
@@ -206,15 +217,20 @@ import List from "./List.vue"
               headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
               "Content-Type": "application/json"},
           })
+
+          this.$store.commit("cleanList") 
+
           this.secondDialog = false
+        },
 
-        
-      },
-
+       editList() {
+           console.log("tu kiedyś co bydzie")
+       }
     },
 
     computed: {
-        ...mapState(["list"]),
+        ...mapState(["list", "requestedListId", "editable"]),
+
         form() {
             return document.querySelector("form")
         }
@@ -241,14 +257,26 @@ import List from "./List.vue"
 
                 this.form.classList.add("active")
                 this.form.style.maxHeight = this.form.scrollHeight + "px";
-            }
-            else {
-                this.disableButtons = false
-            }
-        
+        }
+        else {
+            this.disableButtons = false
+        }
+    },
+
+    created() {
+        if(this.editable) {
+            this.axios.get(`http://localhost/api/lists/${this.requestedListId}`,{ 
+                headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
+            }).then((res) => {
+                this.$store.commit("changeList", res.data.categories)
+            })
+
+            this.$store.commit("changeEditable", false)
+            this.isInEdit = true
+        }
     }
-    
 }
+
 </script>
 
 

@@ -27,6 +27,7 @@
                 <v-btn
                     text
                     color="deep-purple accent-4"
+                    @click="edit(item.id)"
                 >
                     Edytuj
                 </v-btn>
@@ -145,7 +146,15 @@ export default {
         openDialog(id) {
             this.dialog = true
             this.id = id 
+        },
+
+        edit(id) {
+            this.$store.commit("changeId", id)
+            this.$store.commit("changeEditable", true)
+
+            this.$router.push({name: 'Home'})
         }
+
     },
 
     created() {
