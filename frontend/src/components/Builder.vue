@@ -129,6 +129,13 @@ export default {
       isInEdit: false,
     };
   },
+  computed: {
+    ...mapState(["list", "requestedListId", "editable"]),
+
+    form() {
+      return document.querySelector("form");
+    },
+  },
 
   components: {
     Form,
@@ -185,15 +192,23 @@ export default {
     },
 
     editList() {
-      console.log("tu kiedyś co bydzie");
-    },
-  },
+      const data = {
+        name: "dsadas",
+        is_archived: false,
+        categories: this.list,
+      };
 
-  computed: {
-    ...mapState(["list", "requestedListId", "editable"]),
-
-    form() {
-      return document.querySelector("form");
+      this.axios
+        .put(`http://localhost/api/lists/${this.requestedListId}`, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then(() => {
+          this.$router.push({ name: "Lists" });
+          this.$store.dispatch("changeList", []);
+        });
     },
   },
 
