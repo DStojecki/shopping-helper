@@ -2,9 +2,11 @@
 
 ## Project setup
 ```
-npm install
 python -m venv venv
 venv\Scripts\activate
+
+cd .\frontend\
+npm install
 ```
 
 ### Compiles and hot-reloads for development
