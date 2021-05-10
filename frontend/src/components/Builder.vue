@@ -179,7 +179,7 @@ export default {
         categories: this.list,
       };
 
-      this.axios.post("http://localhost/api/lists", data, {
+      this.axios.post("http://localhost:8080/api/lists", data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           "Content-Type": "application/json",
@@ -199,7 +199,7 @@ export default {
       };
 
       this.axios
-        .put(`http://localhost/api/lists/${this.requestedListId}`, data, {
+        .put(`http://localhost:8080/api/lists/${this.requestedListId}`, data, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             "Content-Type": "application/json",
@@ -240,7 +240,7 @@ export default {
   created() {
     if (this.editable) {
       this.axios
-        .get(`http://localhost/api/lists/${this.requestedListId}`, {
+        .get(`http://localhost:8080/api/lists/${this.requestedListId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },

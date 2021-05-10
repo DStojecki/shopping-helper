@@ -104,7 +104,7 @@ export default {
 
     downloadList() {
       this.axios
-        .get("http://localhost/api/lists", {
+        .get("http://localhost:8080/api/lists", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
@@ -121,7 +121,7 @@ export default {
 
     deleteList(id) {
       this.axios
-        .delete(`http://localhost/api/lists/${id}`, {
+        .delete(`http://localhost:8080/api/lists/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },

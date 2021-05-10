@@ -150,7 +150,7 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
                 password: this.password
             }
 
-            this.axios.post("http://localhost/api/auth/register", data)
+            this.axios.post("http://localhost:8080/api/auth/register", data)
             
             this.dialog = false
             this.email = ""

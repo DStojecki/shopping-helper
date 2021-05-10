@@ -90,7 +90,7 @@ export default {
         };
 
         this.axios
-          .post("http://localhost/api/auth/token", data)
+          .post("http://localhost:8080/api/auth/token", data)
           .then((response) => {
             if (response.status === 200) {
               this.$store.commit("changeIsLogged", true);

@@ -119,7 +119,7 @@ export default {
             return
         }
 
-        this.axios.get(`http://localhost/api/lists/${this.requestedListId}`,{ 
+        this.axios.get(`http://localhost:8080/api/lists/${this.requestedListId}`,{ 
 
             headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}
 
