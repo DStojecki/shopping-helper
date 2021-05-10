@@ -4,6 +4,8 @@
 ```
 python -m venv venv
 venv\Scripts\activate
+pip install -r requirements.txt
+python .\manage.py migrate
 
 cd .\frontend\
 npm install
@@ -11,6 +13,9 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
+venv\Scripts\activate 
+python .\manage.py runserver 8080
+
 npm run serve
 ```
 
