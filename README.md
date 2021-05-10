@@ -3,6 +3,8 @@
 ## Project setup
 ```
 npm install
+python -m venv venv
+venv\Scripts\activate
 ```
 
 ### Compiles and hot-reloads for development
